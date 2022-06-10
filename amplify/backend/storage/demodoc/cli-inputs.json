@@ -1,0 +1,14 @@
+{
+  "resourceName": "demodoc",
+  "policyUUID": "9cb0f4c2",
+  "bucketName": "docsxyz",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
