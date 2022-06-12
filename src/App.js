@@ -6,9 +6,15 @@ import awsconfig from './aws-exports';
 import Amplify, { Auth, Storage } from 'aws-amplify';
 
 Amplify.configure({
+  Auth: {
+        identityPoolId: 'us-east-1:af6ffad4-71cc-472c-a04a-4a5ebe558834', //REQUIRED - Amazon Cognito Identity Pool ID
+        region: 'us-east-1', // REQUIRED - Amazon Cognito Region
+        // userPoolId: 'XX-XXXX-X_abcd1234', //OPTIONAL - Amazon Cognito User Pool ID
+        // userPoolWebClientId: 'XX-XXXX-X_abcd1234', //OPTIONAL - Amazon Cognito Web Client ID
+    },
     Storage: {
         AWSS3: {
-            bucket: 'docsxyz', //REQUIRED -  Amazon S3 bucket name
+            bucket: 'docsxyz170911-staging', //REQUIRED -  Amazon S3 bucket name
             region: 'us-east-1', //OPTIONAL -  Amazon service region
         }
     }
