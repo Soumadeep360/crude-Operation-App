@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {createNewInfo} from './jqlFunctions/instruction';
+//import {createNewInfo} from './jqlFunctions/instruction';
 import awsconfig from './aws-exports';
 import Amplify, { Auth, Storage } from 'aws-amplify';
 
@@ -25,19 +25,30 @@ Amplify.configure({
 function App() {
   const dnTxtFile = () => {
     const element = document.createElement("a");
+    //console.log(element);
     const file = new Blob([document.getElementById("input").value],{type : "text/plain"});
-    element.href = URL.createObjectURL(file);
-    element.download = "myFile.txt";
-    document.body.appendChild(element); 
-    element.click();
+    //console.log(file);
+    const a =element.href = URL.createObjectURL(file);
+    //console.log(a);
+    const b=element.download = "myFile.txt";
+    //console.log(b);
+    const data =  Storage.put(file.name, file, {
+      contentType: "text/plain", // contentType is optional
+    });
+    console.log("data is",data);
+    const c=document.body.appendChild(element);
+    //console.log(c);
+    const d=element.click();
+    //console.log(d);
   }
   
   async function onChange(e) {
     const file = e.target.files[0];
     try {
-      await Storage.put(file.name, file, {
+      const data = await Storage.put(file.name, file, {
         contentType: "image/png", // contentType is optional
       });
+      console.log("data is", data)
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
@@ -51,8 +62,8 @@ function App() {
       <h1>S3 test</h1>
 
       <input id="input"/>
-      <button onClick={dnTxtFile}>DN txt</button><br/><br/>
-      <button onClick={()=>createNewInfo(hardData)}>create new info</button><br/><br/>
+      <button onClick={dnTxtFile}>send text to s3</button><br/><br/>
+      {/*<button onClick={()=>createNewInfo(hardData)}>create new info</button><br/><br/>*/}
       <input type="file" onChange={onChange} />;
 
 

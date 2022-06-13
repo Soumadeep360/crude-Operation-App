@@ -1,4 +1,4 @@
-import * as Mutations from '../graphql/mutations';
+/*import * as Mutations from '../graphql/mutations';
 import {API} from 'aws-amplify';
 
 
@@ -12,5 +12,5 @@ export const createNewInfo  = async (infoData) => {
     catch(error){
      console.log("error info:",error);
     }
-}
+}*/
  
