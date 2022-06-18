@@ -8,8 +8,8 @@ type Todo @model @auth(rules:[{allow:public}]){
   email: String! @primaryKey
 }
 type instruction @model @auth(rules:[{allow:public}]){
-  id: ID!
-  phoneNumber: AWSPhone!
+ 
+  email:String!
   name: String! @primaryKey
 
   }

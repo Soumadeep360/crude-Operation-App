@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 //import {createNewInfo} from './jqlFunctions/instruction';
@@ -32,7 +32,7 @@ function App() {
     //console.log(a);
     const b=element.download = "myFile.txt";
     //console.log(b);
-    const data =  Storage.put(file.name, file, {
+    const {data} =  Storage.put(filename,content, {
       contentType: "text/plain", // contentType is optional
     });
     console.log("data is",data);
@@ -55,13 +55,16 @@ function App() {
   }
   
   <input type="file" onChange={onChange} />;
-
+  
   const hardData={phoneNumber:"8888888888",name:"soumadeep"};
+  const [filename,setfilename]=useState(null);
+  const [content,setcontent]=useState(null);
   return (
     <div className="App">
       <h1>S3 test</h1>
 
-      <input id="input"/>
+      <input id ="input" onChange={(Var)=>setfilename(Var.target.value)}/>
+      <input id ="input" onChange={(Var1)=>setcontent(Var1.target.value)}/>
       <button onClick={dnTxtFile}>send text to s3</button><br/><br/>
       {/*<button onClick={()=>createNewInfo(hardData)}>create new info</button><br/><br/>*/}
       <input type="file" onChange={onChange} />;
