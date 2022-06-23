@@ -1,85 +1,43 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createTaskCommentsMapping = /* GraphQL */ `
+  mutation CreateTaskCommentsMapping(
+    $input: CreateTaskCommentsMappingInput!
+    $condition: ModelTaskCommentsMappingConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
-      id
-      name
-      email
+    createTaskCommentsMapping(input: $input, condition: $condition) {
+      commentPath
+      filePath
+      orderID
       createdAt
       updatedAt
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateTaskCommentsMapping = /* GraphQL */ `
+  mutation UpdateTaskCommentsMapping(
+    $input: UpdateTaskCommentsMappingInput!
+    $condition: ModelTaskCommentsMappingConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
-      id
-      name
-      email
+    updateTaskCommentsMapping(input: $input, condition: $condition) {
+      commentPath
+      filePath
+      orderID
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteTaskCommentsMapping = /* GraphQL */ `
+  mutation DeleteTaskCommentsMapping(
+    $input: DeleteTaskCommentsMappingInput!
+    $condition: ModelTaskCommentsMappingConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
-      id
-      name
-      email
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createInstruction = /* GraphQL */ `
-  mutation CreateInstruction(
-    $input: CreateInstructionInput!
-    $condition: ModelInstructionConditionInput
-  ) {
-    createInstruction(input: $input, condition: $condition) {
-      id
-      phoneNumber
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateInstruction = /* GraphQL */ `
-  mutation UpdateInstruction(
-    $input: UpdateInstructionInput!
-    $condition: ModelInstructionConditionInput
-  ) {
-    updateInstruction(input: $input, condition: $condition) {
-      id
-      phoneNumber
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteInstruction = /* GraphQL */ `
-  mutation DeleteInstruction(
-    $input: DeleteInstructionInput!
-    $condition: ModelInstructionConditionInput
-  ) {
-    deleteInstruction(input: $input, condition: $condition) {
-      id
-      phoneNumber
-      name
+    deleteTaskCommentsMapping(input: $input, condition: $condition) {
+      commentPath
+      filePath
+      orderID
       createdAt
       updatedAt
     }

@@ -1,36 +1,36 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($email: String!) {
-    getTodo(email: $email) {
-      id
-      name
-      email
+export const getTaskCommentsMapping = /* GraphQL */ `
+  query GetTaskCommentsMapping($commentPath: String!) {
+    getTaskCommentsMapping(commentPath: $commentPath) {
+      commentPath
+      filePath
+      orderID
       createdAt
       updatedAt
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $email: String
-    $filter: ModelTodoFilterInput
+export const listTaskCommentsMappings = /* GraphQL */ `
+  query ListTaskCommentsMappings(
+    $commentPath: String
+    $filter: ModelTaskCommentsMappingFilterInput
     $limit: Int
     $nextToken: String
     $sortDirection: ModelSortDirection
   ) {
-    listTodos(
-      email: $email
+    listTaskCommentsMappings(
+      commentPath: $commentPath
       filter: $filter
       limit: $limit
       nextToken: $nextToken
       sortDirection: $sortDirection
     ) {
       items {
-        id
-        name
-        email
+        commentPath
+        filePath
+        orderID
         createdAt
         updatedAt
       }
@@ -38,36 +38,25 @@ export const listTodos = /* GraphQL */ `
     }
   }
 `;
-export const getInstruction = /* GraphQL */ `
-  query GetInstruction($name: String!) {
-    getInstruction(name: $name) {
-      id
-      phoneNumber
-      name
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listInstructions = /* GraphQL */ `
-  query ListInstructions(
-    $name: String
-    $filter: ModelInstructionFilterInput
+export const commentByFilePath = /* GraphQL */ `
+  query CommentByFilePath(
+    $filePath: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelTaskCommentsMappingFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listInstructions(
-      name: $name
+    commentByFilePath(
+      filePath: $filePath
+      sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-      sortDirection: $sortDirection
     ) {
       items {
-        id
-        phoneNumber
-        name
+        commentPath
+        filePath
+        orderID
         createdAt
         updatedAt
       }

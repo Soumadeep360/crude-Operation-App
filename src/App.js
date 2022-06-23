@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 //import {createNewInfo} from './jqlFunctions/instruction';
 import awsconfig from './aws-exports';
-import Amplify, { Auth, Storage } from 'aws-amplify';
+import {Amplify, Auth, Storage } from 'aws-amplify';
+import { createNewCommentData, deleteTask, updateCommentData, getTaskbyId } from './jqlFunctions/TaskCommentsMapping';
 
 Amplify.configure({
   Auth: {
@@ -23,7 +24,7 @@ Amplify.configure({
 
 
 function App() {
-  const dnTxtFile = () => {
+  const dnTxtFile = async() => {
     const element = document.createElement("a");
     //console.log(element);
     const file = new Blob([document.getElementById("input").value],{type : "text/plain"});
@@ -32,14 +33,18 @@ function App() {
     //console.log(a);
     const b=element.download = "myFile.txt";
     //console.log(b);
-    const {data} =  Storage.put(filename,content, {
-      contentType: "text/plain", // contentType is optional
-    });
-    console.log("data is",data);
+    //const dataReturn = async() => {
+      const data = await Storage.put(filename,content, {
+        contentType: "text/plain", // contentType is optional
+      });
+      console.log(data);
+    //}
     const c=document.body.appendChild(element);
     //console.log(c);
     const d=element.click();
     //console.log(d);
+    const get = await Storage.get(data.key);
+    console.log(get);
   }
   
   async function onChange(e) {
@@ -53,10 +58,16 @@ function App() {
       console.log("Error uploading file: ", error);
     }
   }
+
+  const cdata = {
+    commentPath: "xya",
+    filePath: "xtz",
+    orderID: "abc"
+  }
   
-  <input type="file" onChange={onChange} />;
+  //<input type="file" onChange={onChange} />;
   
-  const hardData={phoneNumber:"8888888888",name:"soumadeep"};
+  //const hardData={phoneNumber:"8888888888",name:"soumadeep"};
   const [filename,setfilename]=useState(null);
   const [content,setcontent]=useState(null);
   return (
@@ -68,6 +79,9 @@ function App() {
       <button onClick={dnTxtFile}>send text to s3</button><br/><br/>
       {/*<button onClick={()=>createNewInfo(hardData)}>create new info</button><br/><br/>*/}
       <input type="file" onChange={onChange} />;
+      <h1>order task</h1>
+      <button onClick={() => createNewCommentData(cdata)}>Create new Task</button><br/><br/>
+      <button onClick={() => updateCommentData()}>update new Task</button><br/><br/>
 
 
       
