@@ -4,7 +4,7 @@ import './App.css';
 //import {createNewInfo} from './jqlFunctions/instruction';
 import awsconfig from './aws-exports';
 import {Amplify, Auth, Storage } from 'aws-amplify';
-import { createNewCommentData, deleteTask, updateCommentData, getTaskbyId } from './jqlFunctions/TaskCommentsMapping';
+import { createNewCommentData, deleteTask, updateCommentData, listCommentsByFile } from './jqlFunctions/TaskCommentsMapping';
 
 /*Amplify.configure({
   Auth: {
@@ -34,14 +34,20 @@ Amplify.configure(awsconfig)
 
 
 function App() {
+
+  const [filename,setfilename]=useState(null);
+  const [content,setcontent]=useState(null);
+  const [getfile,setGetfile]=useState();
+  const [getfilet,setGetfilet]=useState();
+
   const dnTxtFile = async() => {
     const element = document.createElement("a");
     //console.log(element);
     const file = new Blob([document.getElementById("input").value],{type : "text/plain"});
     //console.log(file);
-    const a =element.href = URL.createObjectURL(file);
+    //const a =element.href = URL.createObjectURL(file);
     //console.log(a);
-    const b=element.download = "myFile.txt";
+    //const b=element.download = "myFile.txt";
     //console.log(b);
     //const dataReturn = async() => {
       const data = await Storage.put(filename,content, {
@@ -55,6 +61,13 @@ function App() {
     //console.log(d);
     const get = await Storage.get(data.key);
     console.log(get);
+    const url = get.split("?");
+    const need = url[0];
+    const uri = "s3://docsxyz170911-staging/public/"+data.key
+    console.log(uri)
+    console.log(need);
+    setGetfilet(uri)
+    //return get;
   }
   
   async function onChange(e) {
@@ -66,22 +79,49 @@ function App() {
       console.log("data is", data)
       const get = await Storage.get(data.key);
       console.log(get);
+      /*const result = await Storage.get(data.key, { download: true });
+
+      // data.Body is a Blob
+      result.Body.text().then(string => { 
+        // handle the String data return String 
+      });*/
+      const url = get.split("?");
+      const need = url[0];
+      console.log(need);
+      const uri = "s3://docsxyz170911-staging/public/"+data.key
+      console.log(uri)
+      setGetfile(uri);
     } catch (error) {
       console.log("Error uploading file: ", error);
     }
+    //return get;
+  }
+
+  const dnproto = async() => {
+    const result = await Storage.get("xyz", { download: true });
+
+      // data.Body is a Blob
+      result.Body.text().then(string => { 
+        // handle the String data return String 
+        console.log(string)
+      });
+      
   }
 
   const cdata = {
-    commentPath: "xyabb",
-    filePath: "xtz",
+    commentPath: getfilet,
+    filePath: getfile,
     orderID: "abc"
   }
+  const ddata = {
+    filePath: "s3://docsxyz170911-staging/public/Screenshot (4).png",
+  }
+  
   
   //<input type="file" onChange={onChange} />;
   
   //const hardData={phoneNumber:"8888888888",name:"soumadeep"};
-  const [filename,setfilename]=useState(null);
-  const [content,setcontent]=useState(null);
+  
   return (
     <div className="App">
       <h1>S3 test</h1>
@@ -92,10 +132,12 @@ function App() {
       <input id ="input" onChange={(Var1)=>setcontent(Var1.target.value)}/>
       <button onClick={dnTxtFile}>send text to s3</button><br/><br/>
       {/*<button onClick={()=>createNewInfo(hardData)}>create new info</button><br/><br/>*/}
-      <h1>order task</h1>
-      <button onClick={() => createNewCommentData(cdata)}>Create new Task</button><br/><br/>
-      <button onClick={() => updateCommentData()}>update new Task</button><br/><br/>
+      <h1>Comment Uploading</h1>
+      <button onClick={() => createNewCommentData(cdata)}>Add comment Data</button><br/><br/>
+      <button onClick={() => listCommentsByFile(ddata)}>List comment Data</button><br/><br/>
 
+      {/*<button onClick={() => updateCommentData()}>update new Task</button><br/><br/>*/}
+      <button onClick={dnproto}>test</button>
 
       
     </div>

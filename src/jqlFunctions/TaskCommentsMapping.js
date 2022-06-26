@@ -1,6 +1,7 @@
 import { API } from 'aws-amplify';
 import * as mutations from '../graphql/mutations';
 import * as queries from '../graphql/queries';
+import {Amplify, Auth, Storage } from 'aws-amplify';
 
 export const createNewCommentData = async (data) => {
     try {
@@ -32,5 +33,35 @@ export const deleteCommentData = async (data) => {
         console.log("error in creating ", error);
         throw new Error(error)
 
+    }
+}
+
+export const listCommentsByFile = async (data) =>{
+    try{
+        const listComment=await API.graphql({query:queries.commentByFilePath, variables: {filePath: data.filePath }});
+        console.log(listComment);
+        const listCommentItems = listComment.data.commentByFilePath.items;
+        //const keyRetrieving = listComment.split("public/")
+        for(var i=0 ; i<listCommentItems.length ; i++)
+        {
+            //console.log(i)
+            //console.log(listCommentItems[i].commentPath)
+            const uri = listCommentItems[i].commentPath
+            const keyRetrieving = uri.split("public/")
+            const key= keyRetrieving[1]
+            //console.log(key)
+            const result = await Storage.get(key, { download: true });
+            result.Body.text().then(string => { 
+                console.log(string)
+              });
+            /*const toBeDownloadedData = {
+                c: listItems[i].email,                  
+                }
+            const deleteTheUser = await API.graphql({ query: mutations.deleteUser, variables: { input: deleteList} });
+            console.log("Deleted User is ", deleteTheUser.data.deleteUser);*/
+        }
+    }catch(error){
+        console.log("Error in list by status",error)
+        throw new Error(error)
     }
 }
