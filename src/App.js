@@ -5,6 +5,7 @@ import './App.css';
 import awsconfig from './aws-exports';
 import {Amplify, Auth, Storage } from 'aws-amplify';
 import { createNewCommentData, deleteTask, updateCommentData, listCommentsByFile } from './jqlFunctions/TaskCommentsMapping';
+import {v4} from 'uuid'
 
 /*Amplify.configure({
   Auth: {
@@ -34,13 +35,16 @@ Amplify.configure(awsconfig)
 
 
 function App() {
-
-  const [filename,setfilename]=useState(null);
+  
+  //const [filename,setfilename]=useState([v4()]);
   const [content,setcontent]=useState(null);
   const [getfile,setGetfile]=useState();
   const [getfilet,setGetfilet]=useState();
 
   const dnTxtFile = async() => {
+    let filename=v4();
+    //console.log(abc);
+    
     const element = document.createElement("a");
     //console.log(element);
     const file = new Blob([document.getElementById("input").value],{type : "text/plain"});
@@ -128,7 +132,7 @@ function App() {
       <input type="file" onChange={onChange} /><br/><br/>
 
 
-      <input id ="input" onChange={(Var)=>setfilename(Var.target.value)}/>
+      {/*<input id ="input" onChange={(Var)=>setfilename(Var.target.value)}/>*/}
       <input id ="input" onChange={(Var1)=>setcontent(Var1.target.value)}/>
       <button onClick={dnTxtFile}>send text to s3</button><br/><br/>
       {/*<button onClick={()=>createNewInfo(hardData)}>create new info</button><br/><br/>*/}
